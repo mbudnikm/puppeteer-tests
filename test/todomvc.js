@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer')
+const chalk = require('chalk')
 
 const { sleep } = require('../test/utils')
 
@@ -27,6 +28,14 @@ const URL = 'http://todomvc.com/examples/jquery/';
   page.evaluate((idx) => {
     document.querySelectorAll('input.toggle')[idx].click()
   }, idx)
+
+  // page.evaluate -> wykonad side-effecty w przeglądarce
+  // page.$eval -> oblicz coś na podstawie pojedynczego selektora
+  // page.$$eval -> oblicz coś  na podstawie selektroa zwracającego arraya
+
+  let items
+  items = await page.$$eval('.todo-list .view', todoItems => todoItems.length)
+  console.log('all items:', chalk.yellow(items))
 
   await sleep(3000)
 
