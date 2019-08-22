@@ -34,28 +34,17 @@ describe('todomvc application', () => {
     await browser.close()
   })
 
-  for(let i=0; i < 3; i++) {
-    it('should display a todo after it was added', async () => {
-      // act
-      // addTodo
-      // await page.click('.new-todo')
-      // await page.keyboard.type('kup czekoladę <3')
-      // await page.keyboard.up('\n')
-      let phrase = "kup czekoladę <3..."
-      await po.addTodo(phrase)
+  it('should display a todo after it was added', async () => {
 
-      //assert
-      // visibleTodosCoun
-      // let items
-      // items = await page.$$eval('.todo-list .view', todoItems => todoItems.length)
-      let items = await po.visibleTodosCount()
-      expect(items).toEqual(1)
+    let phrase = "kup czekoladę <3..."
+    await po.addTodo(phrase)
 
-      // todoWithLabelIsDisplayed
-      // await page.$$eval('.todo-list .view', 
-      //    (items, phrase) => Array.from(items).find(node => node.innerText.includes(phrase)), phrase)
-      let includes = await po.todoWithLabelIsDisplayed(phrase)
-      expect(includes).toBeTruthy()
+    //assert
+    let items = await po.visibleTodosCount()
+    expect(items).toEqual(1)
+
+    // todoWithLabelIsDisplayed
+    let includes = await po.todoWithLabelIsDisplayed(phrase)
+    expect(includes).toBeTruthy()
     }, 50000);
-  }
 });
