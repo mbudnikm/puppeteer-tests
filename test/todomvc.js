@@ -25,7 +25,7 @@ const URL = 'http://todomvc.com/examples/jquery/';
 
   const idx = 0
 
-  page.evaluate((idx) => {
+  await page.evaluate((idx) => {
     document.querySelectorAll('input.toggle')[idx].click()
   }, idx)
 
