@@ -6,6 +6,7 @@ const URL = 'https://www.wykop.pl';
 (async function(){
     const browser = await puppeteer.launch({
         headless: false,
+        // for incognito
         args: [
             '--incognito',
         ]
@@ -13,9 +14,10 @@ const URL = 'https://www.wykop.pl';
 
     //const page = await browser.newPage()
 
+    // for incognito
     const pages = await browser.pages()
     const page = pages[0]
-    
+
     await page.goto(URL, { waitUntil: "networkidle2" })
 
     const dimensions = [
