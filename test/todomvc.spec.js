@@ -47,4 +47,38 @@ describe('todomvc application', () => {
     let includes = await po.todoWithLabelIsDisplayed(phrase)
     expect(includes).toBeTruthy()
     }, 50000);
+
+    it('should display filetered todos', async () => {
+       // act
+    const todos = [
+      'pozmywać naczynia',
+      'wyrzuć śmieci', // [X]
+      'odkurzyć',
+      'zrobić pranie', // [X]
+      'i coś tam jeszcze'
+    ]
+    for (let todo of todos){
+      await po.addTodo(todo)
+    }
+
+    // assert
+    let items
+
+    await po.setTodoCompleted(1)
+
+    await po.setTodoCompleted(3)
+
+    await po.setFilter('all')
+    items = await po.visibleTodosCount()
+    expect(items).toEqual(5)
+
+    await po.setFilter('active')
+    items = await po.visibleTodosCount()
+    expect(items).toEqual(3)
+
+    await po.setFilter('completed')
+    items = await po.visibleTodosCount()
+    expect(items).toEqual(2)
+    
+  }, 100000)
 });
